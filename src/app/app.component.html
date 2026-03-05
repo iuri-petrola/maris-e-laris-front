@@ -1,0 +1,16 @@
+<div class="app-shell">
+  <header class="site-header">
+    <a class="brand" routerLink="/">Maris e Laris</a>
+    <nav class="nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
+    </nav>
+  </header>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="site-footer">
+    <span>Maris e Laris · Todos os direitos reservados</span>
+  </footer>
+</div>

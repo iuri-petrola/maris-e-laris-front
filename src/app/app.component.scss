@@ -1,0 +1,65 @@
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #1f2d2a;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid #f1d9d9;
+  background: #fff9f9;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand {
+  font-weight: 800;
+  text-decoration: none;
+  color: #ba4d4d;
+  letter-spacing: 0.03rem;
+}
+
+.nav {
+  display: flex;
+  gap: 12px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #3c3131;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.nav a.active {
+  background: #ffe6e6;
+  color: #a93f3f;
+}
+
+.content {
+  flex: 1;
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+}
+
+.site-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #f1d9d9;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #705c5c;
+}
+
+@media (max-width: 760px) {
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
