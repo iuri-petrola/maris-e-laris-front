@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
+import { ColecaoComponent } from './pages/colecao/colecao.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'colecao', component: ColecaoComponent },
   { path: '**', redirectTo: '' }
 ];

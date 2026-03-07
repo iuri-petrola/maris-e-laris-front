@@ -1,0 +1,22 @@
+<section class="page">
+  <div class="page-header">
+    <h1>Colecao</h1>
+    <p class="lead">Todas as imagens dos produtos.</p>
+  </div>
+
+  <p class="empty" *ngIf="loading">Carregando produtos...</p>
+  <p class="empty" *ngIf="!loading && errorMessage">{{ errorMessage }}</p>
+
+  <div class="grid" *ngIf="!loading && !errorMessage && produtos.length > 0; else emptyState">
+    <article class="card" *ngFor="let item of produtos">
+      <img [src]="item.imagemUrl" [alt]="item.nome" loading="lazy" />
+      <div class="card-body">
+        <h3>{{ item.nome }}</h3>
+      </div>
+    </article>
+  </div>
+
+  <ng-template #emptyState>
+    <p class="empty" *ngIf="!loading && !errorMessage">Nenhuma imagem cadastrada.</p>
+  </ng-template>
+</section>
