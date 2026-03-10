@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   destaqueNome: string | null = null;
   private produtos: ProdutoItem[] = [];
   private dayChangeTimer: ReturnType<typeof setTimeout> | null = null;
+  private readonly destaqueStoragePrefix = 'maris-laris:destaque-dia:';
 
   constructor(private readonly produtoApiService: ProdutoApiService) {}
 
@@ -57,8 +58,19 @@ export class HomeComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const index = this.getDailyIndex(this.getDaySeed(), this.produtos.length);
-    const item = this.produtos[index];
+    const seed = this.getDaySeed();
+    const storageKey = `${this.destaqueStoragePrefix}${seed}`;
+    const savedId = Number(localStorage.getItem(storageKey));
+    const savedItem = this.produtos.find((produto) => produto.id === savedId);
+
+    const item =
+      savedItem ??
+      this.produtos[this.getDailyIndex(seed, this.produtos.length)];
+
+    if (!savedItem) {
+      localStorage.setItem(storageKey, String(item.id));
+    }
+
     this.destaqueImagemUrl = item.imagemUrl;
     this.destaqueNome = item.nome;
   }
