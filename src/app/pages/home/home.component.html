@@ -22,7 +22,14 @@
 
   <div>
     <div class="hero-card">
-      <h3>Destaque da semana</h3>
+      <h3>Destaque do dia</h3>
+      <img
+        *ngIf="destaqueImagemUrl"
+        [src]="destaqueImagemUrl"
+        [alt]="destaqueNome || 'Produto em destaque'"
+        class="destaque-image"
+      />
+      <p class="destaque-nome" *ngIf="destaqueNome">{{ destaqueNome }}</p>
       <p>{{ destaque.texto }}</p>
       <span class="verse-ref">{{ destaque.referencia }}</span>
     </div>
