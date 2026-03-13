@@ -1,7 +1,7 @@
 <div class="app-shell">
-  <header class="site-header">
+  <header class="site-header" [class.admin-header]="isAdminRoute">
     <a class="brand" routerLink="/">Maris e Laris</a>
-    <nav class="nav">
+    <nav class="nav" *ngIf="!isAdminRoute">
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
       <a routerLink="/colecao" routerLinkActive="active">Colecao</a>
     </nav>
@@ -11,7 +11,7 @@
     <router-outlet></router-outlet>
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer" *ngIf="!isAdminRoute">
     <span>Maris e Laris · Todos os direitos reservados</span>
   </footer>
 </div>

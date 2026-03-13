@@ -1,0 +1,71 @@
+<section class="admin-page">
+  <div class="admin-header">
+    <div>
+      <p class="eyebrow">Painel administrativo</p>
+      <h1>Produtos</h1>
+      <p class="lead">Cadastre, atualize e remova os produtos exibidos na colecao.</p>
+    </div>
+
+    <button class="logout-btn" type="button" (click)="logout()">Sair</button>
+  </div>
+
+  <div class="admin-layout">
+    <article #formCard class="form-card">
+      <h2>{{ editingId ? 'Editar produto' : 'Novo produto' }}</h2>
+
+      <form class="product-form" (ngSubmit)="submit()">
+        <label>
+          <span>Nome</span>
+          <input [(ngModel)]="nome" name="nome" type="text" />
+        </label>
+
+        <label>
+          <span>{{ editingId ? 'Nova imagem (opcional)' : 'Imagem' }}</span>
+          <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+        </label>
+
+        <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+        <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+
+        <div class="form-actions">
+          <button class="primary-btn" type="submit" [disabled]="saving">
+            {{ saving ? 'Salvando...' : editingId ? 'Atualizar produto' : 'Criar produto' }}
+          </button>
+          <button class="secondary-btn" *ngIf="editingId" type="button" (click)="cancelEdit()">Cancelar</button>
+        </div>
+      </form>
+    </article>
+
+    <article class="list-card">
+      <h2>Lista de produtos</h2>
+
+      <p class="empty" *ngIf="loading">Carregando produtos...</p>
+      <p class="empty" *ngIf="!loading && !produtos.length">Nenhum produto cadastrado.</p>
+
+      <div class="product-list" *ngIf="!loading && produtos.length">
+        <article class="product-item" *ngFor="let produto of produtos">
+          <img [src]="produto.imagemUrl" [alt]="produto.nome" />
+
+          <div class="product-content">
+            <h3>{{ produto.nome }}</h3>
+            <p class="status" [class.status-inactive]="!produto.ativo">
+              {{ produto.ativo ? 'Ativo' : 'Inativo' }}
+            </p>
+
+            <div class="item-actions">
+              <button class="secondary-btn" type="button" (click)="startEdit(produto)" [disabled]="!produto.ativo">
+                Editar
+              </button>
+              <button class="secondary-btn" type="button" *ngIf="!produto.ativo" (click)="reactivate(produto)">
+                Reativar
+              </button>
+              <button class="danger-btn" type="button" (click)="remove(produto)" [disabled]="!produto.ativo">
+                Desativar
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </article>
+  </div>
+</section>
