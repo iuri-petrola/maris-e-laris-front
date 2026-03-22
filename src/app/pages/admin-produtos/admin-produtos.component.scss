@@ -125,7 +125,7 @@ button:disabled {
 
 .product-item img {
   width: 100%;
-  height: 110px;
+  height: 150px;
   object-fit: contain;
   background: #fff;
   border-radius: 12px;
@@ -144,6 +144,10 @@ button:disabled {
 
 .status.status-inactive {
   color: #a35c5c;
+}
+
+.status.status-video {
+  color: #7f3232;
 }
 
 .error,

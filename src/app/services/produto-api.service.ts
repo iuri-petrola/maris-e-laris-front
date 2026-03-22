@@ -7,6 +7,7 @@ export type ProdutoItem = {
   id: number;
   nome: string;
   imagemUrl: string;
+  videoUrl: string | null;
   ativo: boolean;
 };
 

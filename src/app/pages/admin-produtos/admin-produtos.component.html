@@ -20,8 +20,13 @@
         </label>
 
         <label>
-          <span>{{ editingId ? 'Nova imagem (opcional)' : 'Imagem' }}</span>
-          <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+          <span>Link do Instagram</span>
+          <input [(ngModel)]="videoUrl" name="videoUrl" type="url" placeholder="https://www.instagram.com/reel/..." />
+        </label>
+
+        <label>
+          <span>{{ editingId ? 'Nova imagem' : 'Imagem' }}</span>
+          <input #imageInput type="file" accept="image/*" (change)="onImageSelected($event)" />
         </label>
 
         <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>

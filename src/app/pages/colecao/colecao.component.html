@@ -9,10 +9,13 @@
 
   <div class="grid" *ngIf="!loading && !errorMessage && produtos.length > 0; else emptyState">
     <article class="card" *ngFor="let item of produtos">
-      <img [src]="item.imagemUrl" [alt]="item.nome" loading="lazy" />
       <div class="card-body">
         <h3>{{ item.nome }}</h3>
       </div>
+      <img [src]="item.imagemUrl" [alt]="item.nome" loading="lazy" />
+      <a class="instagram-link" *ngIf="item.videoUrl" [href]="item.videoUrl" target="_blank" rel="noopener noreferrer">
+        Ver no Instagram
+      </a>
     </article>
   </div>
 

@@ -14,6 +14,7 @@ import { ProdutoApiService, ProdutoItem } from '../../services/produto-api.servi
 })
 export class AdminProdutosComponent implements OnInit {
   @ViewChild('formCard') formCard?: ElementRef<HTMLElement>;
+  @ViewChild('imageInput') imageInput?: ElementRef<HTMLInputElement>;
 
   produtos: ProdutoItem[] = [];
   loading = true;
@@ -22,7 +23,8 @@ export class AdminProdutosComponent implements OnInit {
   successMessage = '';
   editingId: number | null = null;
   nome = '';
-  selectedFile: File | null = null;
+  videoUrl = '';
+  selectedImageFile: File | null = null;
 
   constructor(
     private readonly produtoApiService: ProdutoApiService,
@@ -50,9 +52,9 @@ export class AdminProdutosComponent implements OnInit {
     });
   }
 
-  onFileSelected(event: Event): void {
+  onImageSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-    this.selectedFile = input.files?.[0] || null;
+    this.selectedImageFile = input.files?.[0] || null;
   }
 
   startEdit(produto: ProdutoItem): void {
@@ -64,7 +66,8 @@ export class AdminProdutosComponent implements OnInit {
 
     this.editingId = produto.id;
     this.nome = produto.nome;
-    this.selectedFile = null;
+    this.videoUrl = produto.videoUrl || '';
+    this.selectedImageFile = null;
     this.errorMessage = '';
     this.successMessage = '';
 
@@ -86,16 +89,17 @@ export class AdminProdutosComponent implements OnInit {
       return;
     }
 
-    if (!this.editingId && !this.selectedFile) {
+    if (!this.editingId && !this.selectedImageFile) {
       this.errorMessage = 'Selecione a imagem do produto.';
       return;
     }
 
     const payload = new FormData();
     payload.append('nome', this.nome.trim());
+    payload.append('videoUrl', this.videoUrl.trim());
 
-    if (this.selectedFile) {
-      payload.append('image', this.selectedFile);
+    if (this.selectedImageFile) {
+      payload.append('image', this.selectedImageFile);
     }
 
     this.saving = true;
@@ -173,6 +177,10 @@ export class AdminProdutosComponent implements OnInit {
   private resetForm(): void {
     this.editingId = null;
     this.nome = '';
-    this.selectedFile = null;
+    this.videoUrl = '';
+    this.selectedImageFile = null;
+    if (this.imageInput) {
+      this.imageInput.nativeElement.value = '';
+    }
   }
 }
