@@ -45,13 +45,32 @@
 }
 
 .card-body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
   padding: 14px 12px 10px;
 }
 
 .card-body h3 {
   margin: 0;
   font-size: 0.98rem;
+  line-height: 1.35;
   color: #5f4545;
+}
+
+.price {
+  flex-shrink: 0;
+  margin: 0;
+  padding: 6px 10px;
+  border: 1px solid #f0caca;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #fff4f1 0%, #ffe7e2 100%);
+  color: #8c3030;
+  font-size: 0.94rem;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: 0 8px 18px rgba(176, 75, 75, 0.12);
 }
 
 .empty {

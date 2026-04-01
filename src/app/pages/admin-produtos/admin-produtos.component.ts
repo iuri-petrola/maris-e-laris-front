@@ -23,6 +23,7 @@ export class AdminProdutosComponent implements OnInit {
   successMessage = '';
   editingId: number | null = null;
   nome = '';
+  preco: number | null = null;
   videoUrl = '';
   selectedImageFile: File | null = null;
 
@@ -66,6 +67,7 @@ export class AdminProdutosComponent implements OnInit {
 
     this.editingId = produto.id;
     this.nome = produto.nome;
+    this.preco = produto.preco;
     this.videoUrl = produto.videoUrl || '';
     this.selectedImageFile = null;
     this.errorMessage = '';
@@ -89,6 +91,11 @@ export class AdminProdutosComponent implements OnInit {
       return;
     }
 
+    if (this.preco === null || Number.isNaN(this.preco)) {
+      this.errorMessage = 'Informe o preco do produto.';
+      return;
+    }
+
     if (!this.editingId && !this.selectedImageFile) {
       this.errorMessage = 'Selecione a imagem do produto.';
       return;
@@ -96,6 +103,7 @@ export class AdminProdutosComponent implements OnInit {
 
     const payload = new FormData();
     payload.append('nome', this.nome.trim());
+    payload.append('preco', this.preco.toFixed(2));
     payload.append('videoUrl', this.videoUrl.trim());
 
     if (this.selectedImageFile) {
@@ -177,10 +185,18 @@ export class AdminProdutosComponent implements OnInit {
   private resetForm(): void {
     this.editingId = null;
     this.nome = '';
+    this.preco = null;
     this.videoUrl = '';
     this.selectedImageFile = null;
     if (this.imageInput) {
       this.imageInput.nativeElement.value = '';
     }
+  }
+
+  formatPrice(value: number | null | undefined): string {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(Number(value ?? 0));
   }
 }

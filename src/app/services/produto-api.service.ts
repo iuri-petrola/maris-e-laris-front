@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 export type ProdutoItem = {
   id: number;
   nome: string;
+  preco: number;
   imagemUrl: string;
   videoUrl: string | null;
   ativo: boolean;

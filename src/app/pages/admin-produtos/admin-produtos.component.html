@@ -20,6 +20,11 @@
         </label>
 
         <label>
+          <span>Preco</span>
+          <input [(ngModel)]="preco" name="preco" type="number" min="0" step="0.01" />
+        </label>
+
+        <label>
           <span>Link do Instagram</span>
           <input [(ngModel)]="videoUrl" name="videoUrl" type="url" placeholder="https://www.instagram.com/reel/..." />
         </label>
@@ -52,10 +57,13 @@
           <img [src]="produto.imagemUrl" [alt]="produto.nome" />
 
           <div class="product-content">
-            <h3>{{ produto.nome }}</h3>
-            <p class="status" [class.status-inactive]="!produto.ativo">
-              {{ produto.ativo ? 'Ativo' : 'Inativo' }}
-            </p>
+            <div class="product-meta">
+              <h3>{{ produto.nome }}</h3>
+              <p class="price">{{ formatPrice(produto.preco) }}</p>
+              <p class="status" [class.status-inactive]="!produto.ativo">
+                {{ produto.ativo ? 'Ativo' : 'Inativo' }}
+              </p>
+            </div>
 
             <div class="item-actions">
               <button class="secondary-btn" type="button" (click)="startEdit(produto)" [disabled]="!produto.ativo">
