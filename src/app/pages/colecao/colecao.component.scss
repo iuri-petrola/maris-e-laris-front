@@ -32,16 +32,33 @@
   display: block;
 }
 
-.product-media-link {
-  display: block;
+.card-actions {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+}
+
+.buy-link,
+.instagram-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 11px 14px;
+}
+
+.buy-link {
+  background: linear-gradient(135deg, #25d366 0%, #179c4b 100%);
+  color: #fff;
+  box-shadow: 0 10px 18px rgba(37, 211, 102, 0.22);
 }
 
 .instagram-link {
-  display: inline-block;
-  margin: 12px 12px 0;
-  text-decoration: none;
-  font-weight: 700;
+  border: 1px solid #f0d2d2;
   color: #a93f3f;
+  background: #fff7f7;
 }
 
 .card-body {

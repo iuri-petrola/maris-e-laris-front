@@ -14,9 +14,21 @@
         <p class="price">{{ formatPrice(item.preco) }}</p>
       </div>
       <img [src]="item.imagemUrl" [alt]="item.nome" loading="lazy" />
-      <a class="instagram-link" *ngIf="item.videoUrl" [href]="item.videoUrl" target="_blank" rel="noopener noreferrer">
-        Ver no Instagram
-      </a>
+
+      <div class="card-actions">
+        <a
+          class="buy-link"
+          [href]="getCompraUrl(item)"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Comprar agora
+        </a>
+
+        <a class="instagram-link" *ngIf="item.videoUrl" [href]="item.videoUrl" target="_blank" rel="noopener noreferrer">
+          Ver no Instagram
+        </a>
+      </div>
     </article>
   </div>
 
