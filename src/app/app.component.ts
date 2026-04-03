@@ -20,10 +20,10 @@ export class AppComponent {
   isAdminRoute = false;
 
   readonly socialLinks: SocialLink[] = [
-    { name: 'whatsapp', href: 'https://wa.me/5585996270455', label: 'WhatsApp' },
     { name: 'instagram', href: 'https://www.instagram.com/mariselarislojaonline/', label: 'Instagram' },
     { name: 'facebook', href: 'https://www.facebook.com/mariselaris', label: 'Facebook' },
-    { name: 'tiktok', href: 'https://www.tiktok.com/@mariselaris.loja', label: 'TikTok' }
+    { name: 'tiktok', href: 'https://www.tiktok.com/@mariselaris.loja', label: 'TikTok' },
+    { name: 'whatsapp', href: 'https://wa.me/5585996270455', label: 'WhatsApp' }
   ];
 
   constructor(private readonly router: Router) {
