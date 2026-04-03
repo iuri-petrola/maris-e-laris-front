@@ -3,6 +3,12 @@ import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
 
+type SocialLink = {
+  name: string;
+  href: string;
+  label: string;
+};
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -12,6 +18,13 @@ import { filter } from 'rxjs';
 })
 export class AppComponent {
   isAdminRoute = false;
+
+  readonly socialLinks: SocialLink[] = [
+    { name: 'whatsapp', href: 'https://wa.me/5585996270455', label: 'WhatsApp' },
+    { name: 'instagram', href: 'https://www.instagram.com/mariselarislojaonline/', label: 'Instagram' },
+    { name: 'facebook', href: 'https://www.facebook.com/mariselaris', label: 'Facebook' },
+    { name: 'tiktok', href: 'https://www.tiktok.com/@mariselaris.loja', label: 'TikTok' }
+  ];
 
   constructor(private readonly router: Router) {
     this.updateAdminRoute(this.router.url);

@@ -9,6 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
   padding: 16px 24px;
   border-bottom: 1px solid #f1d9d9;
   background: #fff9f9;
@@ -26,6 +27,12 @@
   text-decoration: none;
   color: #ba4d4d;
   letter-spacing: 0.03rem;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
 }
 
 .nav {
@@ -46,6 +53,58 @@
   color: #a93f3f;
 }
 
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid #f1d9d9;
+  background: #fff;
+  color: #8f3c3c;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.social-link svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.social-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(169, 63, 63, 0.14);
+}
+
+.social-link.whatsapp:hover {
+  color: #1f9d5c;
+  border-color: #bfe6cf;
+}
+
+.social-link.instagram:hover {
+  color: #c24d7a;
+  border-color: #f0c5d4;
+}
+
+.social-link.facebook:hover {
+  color: #2d63c8;
+  border-color: #c9d8f8;
+}
+
+.social-link.tiktok:hover {
+  color: #111;
+  border-color: #d7d7d7;
+}
+
+
 .content {
   flex: 1;
   width: min(1100px, 92vw);
@@ -63,7 +122,21 @@
 @media (max-width: 760px) {
   .site-header {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    align-items: stretch;
+  }
+
+  .header-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+  }
+
+  .social-links {
+    justify-content: flex-start;
+    flex-wrap: wrap;
   }
 }
