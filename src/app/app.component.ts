@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
+import { AdminAuthService } from './services/admin-auth.service';
 
 type SocialLink = {
   name: string;
@@ -18,6 +19,7 @@ type SocialLink = {
 })
 export class AppComponent {
   isAdminRoute = false;
+  adminUsername: string | null = null;
 
   readonly socialLinks: SocialLink[] = [
     { name: 'instagram', href: 'https://www.instagram.com/mariselarislojaonline/', label: 'Instagram' },
@@ -26,15 +28,19 @@ export class AppComponent {
     { name: 'whatsapp', href: 'https://wa.me/5585996270455', label: 'WhatsApp' }
   ];
 
-  constructor(private readonly router: Router) {
-    this.updateAdminRoute(this.router.url);
+  constructor(
+    private readonly router: Router,
+    private readonly adminAuthService: AdminAuthService
+  ) {
+    this.updateRouteState(this.router.url);
 
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe((event) => this.updateAdminRoute((event as NavigationEnd).urlAfterRedirects));
+      .subscribe((event) => this.updateRouteState((event as NavigationEnd).urlAfterRedirects));
   }
 
-  private updateAdminRoute(url: string): void {
+  private updateRouteState(url: string): void {
     this.isAdminRoute = url.startsWith('/admin');
+    this.adminUsername = this.adminAuthService.getUsername();
   }
 }

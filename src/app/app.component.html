@@ -1,6 +1,9 @@
 <div class="app-shell">
   <header class="site-header" [class.admin-header]="isAdminRoute">
-    <a class="brand" routerLink="/">Maris e Laris</a>
+    <div class="brand-wrap">
+      <a class="brand" routerLink="/">Maris e Laris</a>
+      <span class="admin-username" *ngIf="isAdminRoute && adminUsername">Ola, {{ adminUsername }}</span>
+    </div>
 
     <div class="header-actions" *ngIf="!isAdminRoute">
       <nav class="nav">

@@ -19,7 +19,13 @@
 }
 
 .site-header.admin-header {
-  justify-content: center;
+  justify-content: flex-start;
+}
+
+.brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .brand {
@@ -27,6 +33,15 @@
   text-decoration: none;
   color: #ba4d4d;
   letter-spacing: 0.03rem;
+}
+
+.admin-username {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #7f3232;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #ffeaea;
 }
 
 .header-actions {
@@ -121,6 +136,10 @@
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
+  }
+
+  .brand-wrap {
+    flex-wrap: wrap;
   }
 
   .nav {
