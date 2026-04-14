@@ -52,10 +52,11 @@
 
 .nav {
   display: flex;
+  align-items: center;
   gap: 12px;
 }
 
-.nav a {
+.nav > a {
   text-decoration: none;
   color: #3c3131;
   font-weight: 600;
@@ -68,48 +69,76 @@
   color: #a93f3f;
 }
 
-.social-links {
+.contact-menu {
+  position: relative;
+}
+
+.contact-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  background: transparent;
+  color: #3c3131;
+  font: inherit;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.contact-trigger:hover,
+.contact-menu.open .contact-trigger {
+  background: #ffe6e6;
+  color: #a93f3f;
+}
+
+
+.contact-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 180px;
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  border: 1px solid #f1d9d9;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 14px 30px rgba(169, 63, 63, 0.12);
+}
+
+.contact-item {
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
-.social-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  color: #8f3c3c;
+  padding: 8px 10px;
+  border-radius: 12px;
   text-decoration: none;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  color: #3c3131;
+  font-weight: 600;
 }
 
-.social-link svg {
-  width: 22px;
-  height: 22px;
+.contact-item:hover {
+  background: #fff3f3;
+}
+
+.contact-item svg {
+  width: 20px;
+  height: 20px;
   fill: currentColor;
 }
 
-.social-link:hover {
-  transform: translateY(-1px);
-  opacity: 0.85;
+.contact-item.whatsapp {
+  color: #25d366;
 }
 
-.social-link.instagram {
+.contact-item.instagram {
   color: #c43d74;
 }
 
-.social-link.facebook {
-  color: #1877f2;
-}
-
-.social-link.tiktok {
+.contact-item.tiktok {
   color: #111;
-}
-
-.social-link.whatsapp {
-  color: #25d366;
 }
 
 .content {
@@ -138,16 +167,13 @@
     gap: 12px;
   }
 
-  .brand-wrap {
-    flex-wrap: wrap;
-  }
-
+  .brand-wrap,
   .nav {
     flex-wrap: wrap;
   }
 
-  .social-links {
-    justify-content: flex-start;
-    flex-wrap: wrap;
+  .contact-dropdown {
+    left: 0;
+    right: auto;
   }
 }

@@ -12,7 +12,7 @@ import { ProdutoApiService, ProdutoItem } from '../../services/produto-api.servi
 })
 export class HomeComponent implements OnInit, OnDestroy {
   readonly destaque = {
-    texto: 'Colecao nova com roupas e sapatos femininos para todas as ocasioes.',
+    texto: 'Colecao nova com roupas femininas para todas as ocasioes.',
     referencia: 'Maris e Laris'
   };
 

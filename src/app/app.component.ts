@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
@@ -20,12 +20,12 @@ type SocialLink = {
 export class AppComponent {
   isAdminRoute = false;
   adminUsername: string | null = null;
+  contatosOpen = false;
 
   readonly socialLinks: SocialLink[] = [
+    { name: 'whatsapp', href: 'https://wa.me/5585996270455', label: 'WhatsApp' },
     { name: 'instagram', href: 'https://www.instagram.com/mariselarislojaonline/', label: 'Instagram' },
-    { name: 'facebook', href: 'https://www.facebook.com/mariselaris', label: 'Facebook' },
-    { name: 'tiktok', href: 'https://www.tiktok.com/@mariselaris.loja', label: 'TikTok' },
-    { name: 'whatsapp', href: 'https://wa.me/5585996270455', label: 'WhatsApp' }
+    { name: 'tiktok', href: 'https://www.tiktok.com/@mariselaris.loja', label: 'TikTok' }
   ];
 
   constructor(
@@ -39,8 +39,22 @@ export class AppComponent {
       .subscribe((event) => this.updateRouteState((event as NavigationEnd).urlAfterRedirects));
   }
 
+  toggleContatos(): void {
+    this.contatosOpen = !this.contatosOpen;
+  }
+
+  closeContatos(): void {
+    this.contatosOpen = false;
+  }
+
+  @HostListener('document:click')
+  onDocumentClick(): void {
+    this.closeContatos();
+  }
+
   private updateRouteState(url: string): void {
     this.isAdminRoute = url.startsWith('/admin');
     this.adminUsername = this.adminAuthService.getUsername();
+    this.contatosOpen = false;
   }
 }
