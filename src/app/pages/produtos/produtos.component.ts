@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ProdutoApiService, ProdutoItem } from '../../services/produto-api.service';
 
 @Component({
-  selector: 'app-colecao',
+  selector: 'app-produtos',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './colecao.component.html',
-  styleUrls: ['./colecao.component.scss']
+  templateUrl: './produtos.component.html',
+  styleUrls: ['./produtos.component.scss']
 })
-export class ColecaoComponent implements OnInit {
+export class ProdutosComponent implements OnInit {
   produtos: ProdutoItem[] = [];
   loading = true;
   errorMessage = '';

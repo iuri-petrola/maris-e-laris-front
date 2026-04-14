@@ -8,7 +8,7 @@
     <div class="header-actions" *ngIf="!isAdminRoute">
       <nav class="nav">
         <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
-        <a routerLink="/colecao" routerLinkActive="active">Colecao</a>
+        <a routerLink="/produtos" routerLinkActive="active">Produtos</a>
 
         <div class="contact-menu" [class.open]="contatosOpen" (click)="$event.stopPropagation()">
           <button class="contact-trigger" type="button" (click)="toggleContatos()">
