@@ -6,9 +6,9 @@
 }
 
 .site-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
   gap: 20px;
   padding: 16px 24px;
   border-bottom: 1px solid #f1d9d9;
@@ -19,13 +19,14 @@
 }
 
 .site-header.admin-header {
+  display: flex;
   justify-content: flex-start;
 }
 
 .brand-wrap {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
 }
 
 .brand {
@@ -46,14 +47,38 @@
 
 .header-actions {
   display: flex;
-  align-items: center;
-  gap: 18px;
+  align-items: flex-start;
+  justify-content: flex-end;
 }
 
 .nav {
   display: flex;
   align-items: center;
   gap: 12px;
+  justify-content: center;
+  align-self: end;
+  justify-self: center;
+  margin-top: 8px;
+}
+
+.auth-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  white-space: nowrap;
+}
+
+.auth-links > a {
+  padding-left: 0;
+  padding-right: 0;
+  text-decoration: none;
+  color: #8f6666;
+  font-weight: 500;
+}
+
+.auth-links > a:hover,
+.auth-links > a.active {
+  color: #a93f3f;
 }
 
 .nav > a {
@@ -62,6 +87,13 @@
   font-weight: 600;
   padding: 6px 10px;
   border-radius: 999px;
+}
+
+.nav-divider {
+  color: #b88989;
+  font-weight: 600;
+  line-height: 1;
+  user-select: none;
 }
 
 .nav a.active {
@@ -157,23 +189,36 @@
 
 @media (max-width: 760px) {
   .site-header {
-    flex-direction: column;
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 10px 12px;
+  }
+
+  .brand-wrap {
+    min-width: 0;
   }
 
   .header-actions {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
+    display: block;
+    justify-self: end;
   }
 
-  .brand-wrap,
+  .auth-links {
+    align-self: center;
+    justify-self: end;
+  }
+
   .nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: 0;
+    justify-content: center;
     flex-wrap: wrap;
   }
 
   .contact-dropdown {
-    left: 0;
-    right: auto;
+    left: auto;
+    right: 0;
   }
 }

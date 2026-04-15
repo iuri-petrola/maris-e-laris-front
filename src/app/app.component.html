@@ -5,17 +5,16 @@
       <span class="admin-username" *ngIf="isAdminRoute && adminUsername">Ola, {{ adminUsername }}</span>
     </div>
 
-    <div class="header-actions" *ngIf="!isAdminRoute">
-      <nav class="nav">
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
-        <a routerLink="/produtos" routerLinkActive="active">Produtos</a>
+    <nav class="nav" *ngIf="!isAdminRoute">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
+      <a routerLink="/produtos" routerLinkActive="active">Produtos</a>
 
-        <div class="contact-menu" [class.open]="contatosOpen" (click)="$event.stopPropagation()">
-          <button class="contact-trigger" type="button" (click)="toggleContatos()">
-            Contatos
-          </button>
+      <div class="contact-menu" [class.open]="contatosOpen" (click)="$event.stopPropagation()">
+        <button class="contact-trigger" type="button" (click)="toggleContatos()">
+          Contatos
+        </button>
 
-          <div class="contact-dropdown" *ngIf="contatosOpen">
+        <div class="contact-dropdown" *ngIf="contatosOpen">
             <a
               *ngFor="let social of socialLinks"
               class="contact-item"
@@ -41,8 +40,13 @@
               <span>{{ social.label }}</span>
             </a>
           </div>
-        </div>
-      </nav>
+      </div>
+    </nav>
+
+    <div class="header-actions" *ngIf="!isAdminRoute">
+      <div class="auth-links">
+        <a routerLink="/cadastre-se" routerLinkActive="active">Cadastre-se</a><span class="nav-divider" aria-hidden="true">&nbsp;|&nbsp;&nbsp;</span><a routerLink="/login" routerLinkActive="active">Entrar</a>
+      </div>
     </div>
   </header>
 
