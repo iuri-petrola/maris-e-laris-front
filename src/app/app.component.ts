@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
 import { AdminAuthService } from './services/admin-auth.service';
+import { ClientAuthService } from './services/client-auth.service';
 
 type SocialLink = {
   name: string;
@@ -20,6 +21,7 @@ type SocialLink = {
 export class AppComponent {
   isAdminRoute = false;
   adminUsername: string | null = null;
+  clientNome: string | null = null;
   contatosOpen = false;
 
   readonly socialLinks: SocialLink[] = [
@@ -30,7 +32,8 @@ export class AppComponent {
 
   constructor(
     private readonly router: Router,
-    private readonly adminAuthService: AdminAuthService
+    private readonly adminAuthService: AdminAuthService,
+    private readonly clientAuthService: ClientAuthService
   ) {
     this.updateRouteState(this.router.url);
 
@@ -47,6 +50,11 @@ export class AppComponent {
     this.contatosOpen = false;
   }
 
+  logoutClient(): void {
+    this.clientAuthService.logout();
+    this.router.navigate(['/login']);
+  }
+
   @HostListener('document:click')
   onDocumentClick(): void {
     this.closeContatos();
@@ -55,6 +63,7 @@ export class AppComponent {
   private updateRouteState(url: string): void {
     this.isAdminRoute = url.startsWith('/admin');
     this.adminUsername = this.adminAuthService.getUsername();
+    this.clientNome = this.clientAuthService.getNome();
     this.contatosOpen = false;
   }
 }

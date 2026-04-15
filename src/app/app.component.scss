@@ -81,6 +81,20 @@
   color: #a93f3f;
 }
 
+.auth-action {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #8f6666;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.auth-action:hover {
+  color: #a93f3f;
+}
+
 .nav > a {
   text-decoration: none;
   color: #3c3131;

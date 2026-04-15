@@ -3,16 +3,20 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProdutosComponent } from './pages/produtos/produtos.component';
 import { CadastreSeComponent } from './pages/cadastre-se/cadastre-se.component';
 import { LoginClienteComponent } from './pages/login-cliente/login-cliente.component';
+import { ClienteAreaComponent } from './pages/cliente-area/cliente-area.component';
 import { adminAuthGuard } from './guards/admin-auth.guard';
 import { adminGuestGuard } from './guards/admin-guest.guard';
+import { clientAuthGuard } from './guards/client-auth.guard';
+import { clientGuestGuard } from './guards/client-guest.guard';
 import { AdminLoginComponent } from './pages/admin-login/admin-login.component';
 import { AdminProdutosComponent } from './pages/admin-produtos/admin-produtos.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'produtos', component: ProdutosComponent },
-  { path: 'cadastre-se', component: CadastreSeComponent },
-  { path: 'login', component: LoginClienteComponent },
+  { path: 'cadastre-se', component: CadastreSeComponent, canActivate: [clientGuestGuard] },
+  { path: 'login', component: LoginClienteComponent, canActivate: [clientGuestGuard] },
+  { path: 'cliente', component: ClienteAreaComponent, canActivate: [clientAuthGuard] },
   { path: 'admin/login', component: AdminLoginComponent, canActivate: [adminGuestGuard] },
   { path: 'admin/produtos', component: AdminProdutosComponent, canActivate: [adminAuthGuard] },
   { path: 'admin', redirectTo: 'admin/produtos', pathMatch: 'full' },

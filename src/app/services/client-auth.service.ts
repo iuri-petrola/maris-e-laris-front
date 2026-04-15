@@ -8,6 +8,15 @@ type ClientLoginResponse = {
   nome: string;
 };
 
+export type ClientProfile = {
+  id: number;
+  nome: string;
+  email: string;
+  whatsapp: string;
+  ativo: boolean;
+  createdAt: string;
+};
+
 @Injectable({ providedIn: 'root' })
 export class ClientAuthService {
   private readonly apiBaseUrl = environment.apiBaseUrl;
@@ -40,5 +49,9 @@ export class ClientAuthService {
 
   isAuthenticated(): boolean {
     return !!this.getToken();
+  }
+
+  getProfile(): Observable<ClientProfile> {
+    return this.http.get<ClientProfile>(`${this.apiBaseUrl}/client/me`);
   }
 }

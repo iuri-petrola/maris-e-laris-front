@@ -44,7 +44,7 @@ export class LoginClienteComponent {
     this.clientAuthService.login(this.nome.trim(), this.password).subscribe({
       next: () => {
         this.loading = false;
-        this.router.navigate(['/']);
+        this.router.navigate(['/cliente']);
       },
       error: (error) => {
         this.loading = false;
