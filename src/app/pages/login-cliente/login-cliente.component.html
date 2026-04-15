@@ -15,6 +15,7 @@
         <input [(ngModel)]="password" name="password" type="password" autocomplete="current-password" />
       </label>
 
+      <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
       <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
 
       <button type="submit" [disabled]="loading">

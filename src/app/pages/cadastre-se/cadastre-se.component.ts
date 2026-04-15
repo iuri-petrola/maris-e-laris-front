@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ClientUserApiService } from '../../services/client-user-api.service';
 
 @Component({
@@ -20,7 +21,10 @@ export class CadastreSeComponent {
   errorMessage = '';
   successMessage = '';
 
-  constructor(private readonly clientUserApiService: ClientUserApiService) {}
+  constructor(
+    private readonly clientUserApiService: ClientUserApiService,
+    private readonly router: Router
+  ) {}
 
   submit(): void {
     if (!this.nome.trim() || !this.email.trim() || !this.whatsapp.trim() || !this.senha || !this.confirmarSenha) {
@@ -55,6 +59,9 @@ export class CadastreSeComponent {
           this.whatsapp = '';
           this.senha = '';
           this.confirmarSenha = '';
+          this.router.navigate(['/login'], {
+            queryParams: { message: 'signup-success' }
+          });
         },
         error: (error) => {
           this.loading = false;
