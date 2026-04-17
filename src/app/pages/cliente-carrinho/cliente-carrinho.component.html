@@ -1,0 +1,59 @@
+<section class="cliente-carrinho-page">
+  <div class="cliente-carrinho-card">
+    <div class="cliente-carrinho-header">
+      <div>
+        <p class="eyebrow">Area do cliente</p>
+        <h1>Meu carrinho</h1>
+      </div>
+      <div class="header-actions">
+        <a class="back-link" routerLink="/cliente">Continuar comprando</a>
+        <button type="button" class="logout-btn" (click)="logout()">Sair</button>
+      </div>
+    </div>
+
+    <p class="status" *ngIf="loading">Carregando carrinho...</p>
+    <p class="error" *ngIf="!loading && errorMessage">{{ errorMessage }}</p>
+
+    <div class="cart-panel" *ngIf="!loading && !errorMessage">
+      <div class="section-title">
+        <h2>Itens adicionados</h2>
+        <p *ngIf="cart.items.length > 0">{{ cart.items.length }} item(ns)</p>
+      </div>
+
+      <p class="cart-message" *ngIf="cartMessage">{{ cartMessage }}</p>
+      <p class="status" *ngIf="cartLoading">Atualizando carrinho...</p>
+      <p class="status" *ngIf="!cartLoading && cart.items.length === 0">Seu carrinho ainda esta vazio.</p>
+
+      <div class="cart-items" *ngIf="cart.items.length > 0">
+        <article class="cart-item" *ngFor="let item of cart.items">
+          <div class="cart-item-thumb">
+            <img [src]="item.produto.imagemUrl" [alt]="item.produto.nome" loading="lazy" />
+          </div>
+
+          <div class="cart-item-body">
+            <strong>{{ item.produto.nome }}</strong>
+            <span>{{ formatPrice(item.produto.preco) }}</span>
+
+            <div class="cart-item-actions">
+              <button type="button" (click)="changeQuantidade(item.id, item.quantidade - 1)" [disabled]="cartLoading || item.quantidade <= 1">-</button>
+              <span>{{ item.quantidade }}</span>
+              <button type="button" (click)="changeQuantidade(item.id, item.quantidade + 1)" [disabled]="cartLoading">+</button>
+              <button type="button" class="remove-btn" (click)="removeItem(item.id)" [disabled]="cartLoading">Remover</button>
+            </div>
+          </div>
+
+          <strong class="cart-subtotal">{{ formatPrice(item.subtotal) }}</strong>
+        </article>
+
+        <div class="cart-total">
+          <span>Total</span>
+          <strong>{{ formatPrice(cart.total) }}</strong>
+        </div>
+
+        <div class="cart-footer-actions">
+          <a class="back-link" routerLink="/cliente">Continuar comprando</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

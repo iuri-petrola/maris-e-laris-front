@@ -1,4 +1,12 @@
 <section class="cliente-area-page">
+  <div class="success-popup-backdrop" *ngIf="successPopupMessage">
+    <div class="success-popup" role="alertdialog" aria-modal="true" aria-live="assertive">
+      <div class="success-popup-icon">✓</div>
+      <p>{{ successPopupMessage }}</p>
+      <button type="button" class="success-popup-btn" (click)="closeSuccessPopup()">Ir para o carrinho</button>
+    </div>
+  </div>
+
   <div class="cliente-area-card">
     <div class="cliente-area-header">
       <div>
@@ -11,26 +19,26 @@
     <p class="status" *ngIf="loading">Carregando seus dados...</p>
     <p class="error" *ngIf="!loading && errorMessage">{{ errorMessage }}</p>
 
-    <div class="profile-grid" *ngIf="!loading && profile">
-      <article class="profile-item">
-        <span class="label">Nome</span>
-        <strong>{{ profile.nome }}</strong>
-      </article>
+    <section class="produtos-panel" *ngIf="!loading && !errorMessage">
+      <div class="section-title">
+        <h2>Produtos</h2>
+        <p>Adicione itens ao seu carrinho.</p>
+      </div>
 
-      <article class="profile-item">
-        <span class="label">E-mail</span>
-        <strong>{{ profile.email }}</strong>
-      </article>
+      <p class="cart-message" *ngIf="cartMessage">{{ cartMessage }}</p>
 
-      <article class="profile-item">
-        <span class="label">WhatsApp</span>
-        <strong>{{ profile.whatsapp }}</strong>
-      </article>
-
-      <article class="profile-item">
-        <span class="label">Cadastro</span>
-        <strong>{{ profile.createdAt | date: 'dd/MM/yyyy' }}</strong>
-      </article>
-    </div>
+      <div class="produtos-grid">
+        <article class="produto-card" *ngFor="let produto of produtos">
+          <img [src]="produto.imagemUrl" [alt]="produto.nome" loading="lazy" />
+          <div class="produto-card-body">
+            <strong>{{ produto.nome }}</strong>
+            <span>{{ formatPrice(produto.preco) }}</span>
+          </div>
+          <button type="button" class="cart-btn" (click)="addToCart(produto)" [disabled]="cartLoading">
+            Adicionar ao carrinho
+          </button>
+        </article>
+      </div>
+    </section>
   </div>
 </section>

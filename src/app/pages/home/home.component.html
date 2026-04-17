@@ -1,14 +1,22 @@
 <section class="top-headline">
-  <p class="eyebrow">Moda feminina</p>
   <p class="lead-card">Elegancia feminina em cada detalhe</p>
 </section>
 
 <section class="main-banner">
-  <div class="banner-content">
-    <p class="banner-tag">Nova temporada</p>
-  </div>
-  <p class="banner-footer">Descubra roupas com estilo exclusivo para valorizar o seu visual.</p>
+  <img
+    class="banner-image banner-image-desktop"
+    [src]="bannerDesktopImageUrl"
+    alt="Banner principal Maris e Laris"
+  />
+  <img
+    class="banner-image banner-image-mobile"
+    [src]="bannerMobileImageUrl"
+    alt="Banner principal Maris e Laris"
+  />
+  <div class="banner-overlay"></div>
 </section>
+
+<p class="banner-subtitle">Descubra roupas com estilo exclusivo para valorizar o seu visual.</p>
 
 <section class="hero">
   <div class="hero-content">

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { ProdutoApiService, ProdutoItem } from '../../services/produto-api.service';
 
 @Component({
   selector: 'app-produtos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './produtos.component.html',
   styleUrls: ['./produtos.component.scss']
 })
@@ -13,7 +14,6 @@ export class ProdutosComponent implements OnInit {
   produtos: ProdutoItem[] = [];
   loading = true;
   errorMessage = '';
-  private readonly whatsappNumber = '5585996270455';
 
   constructor(private readonly produtoApiService: ProdutoApiService) {}
 
@@ -37,14 +37,4 @@ export class ProdutosComponent implements OnInit {
     }).format(Number(value ?? 0));
   }
 
-  getCompraUrl(item: ProdutoItem): string {
-    const message = [
-      'Ola, tenho interesse neste produto:',
-      item.nome,
-      `Preco: ${this.formatPrice(item.preco)}`,
-      `Imagem: ${item.imagemUrl}`
-    ].join('\n');
-
-    return `https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(message)}`;
-  }
 }

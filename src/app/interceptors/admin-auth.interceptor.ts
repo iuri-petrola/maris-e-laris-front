@@ -12,7 +12,7 @@ export const adminAuthInterceptor: HttpInterceptorFn = (req, next) => {
   const adminToken = authService.getToken();
   const clientToken = clientAuthService.getToken();
   const isAdminRequest = req.url.includes('/admin/') || /\/produtos(?:\/\d+(?:\/[a-z-]+)?)?$/.test(req.url);
-  const isClientRequest = req.url.includes('/client/me');
+  const isClientRequest = req.url.includes('/client/me') || req.url.includes('/client/cart');
 
   let authReq = req;
 

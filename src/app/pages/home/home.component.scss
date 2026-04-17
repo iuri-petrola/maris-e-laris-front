@@ -1,52 +1,58 @@
 .top-headline {
   margin-top: 18px;
-  margin-bottom: 8px;
+  margin-bottom: 2px;
 }
 
 .top-headline .eyebrow {
   margin-bottom: 8px;
 }
 
+.banner-label {
+  margin: 18px 0 6px;
+}
+
 .main-banner {
-  margin-top: 22px;
+  margin-top: 8px;
   border-radius: 20px;
   padding: 24px 24px 34px;
+  aspect-ratio: 2 / 1;
   min-height: 260px;
+  max-height: 520px;
   color: #fff;
   overflow: hidden;
   position: relative;
-  background-image:
-    linear-gradient(100deg, rgba(35, 18, 15, 0.78) 5%, rgba(109, 45, 35, 0.6) 48%, rgba(169, 63, 63, 0.45) 100%),
-    url('/assets/maris-e-laris-banner-principal.png');
-  background-size: cover;
-  background-position: center 28%;
+  background: #5f302f;
 }
 
-.banner-content {
-  max-width: 620px;
-  position: relative;
-  z-index: 1;
-}
-
-.banner-footer {
+.banner-image,
+.banner-overlay {
   position: absolute;
-  left: 24px;
-  right: 24px;
-  bottom: 18px;
-  margin: 0;
-  z-index: 1;
-  font-size: 0.95rem;
-  color: #fff2ed;
-  font-weight: 600;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.banner-tag {
-  margin: -10px 0 32px;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18rem;
-  opacity: 0.95;
-  color: #fff8f5;
+.banner-image {
+  object-fit: cover;
+  object-position: center center;
+}
+
+.banner-image-mobile {
+  display: none;
+}
+
+.banner-overlay {
+  background: linear-gradient(
+    100deg,
+    rgba(35, 18, 15, 0.42) 5%,
+    rgba(109, 45, 35, 0.28) 48%,
+    rgba(169, 63, 63, 0.18) 100%
+  );
+}
+
+.banner-subtitle {
+  margin: 8px 0 0;
+  padding: 0 6px;
 }
 
 .hero {
@@ -68,11 +74,6 @@
   font-size: 0.75rem;
   color: #a93f3f;
   margin: 0;
-}
-
-.lead {
-  font-size: 1.1rem;
-  color: #5d4a4a;
 }
 
 .actions {
@@ -120,8 +121,16 @@
 
 .lead-card {
   margin: 0;
+}
+
+.lead-card,
+.banner-subtitle,
+.lead {
+  font-size: 1rem;
   color: #6d5353;
   font-weight: 600;
+  font-family: inherit;
+  line-height: 1.5;
 }
 
 .hero-card h3 {
@@ -138,19 +147,31 @@
 
 @media (max-width: 768px) {
   .main-banner {
-    background-position: 62% 24%;
+    aspect-ratio: 1280 / 853;
     padding: 28px 18px;
-    min-height: 180px;
+    min-height: 200px;
+    max-height: none;
   }
 
-  .banner-content {
-    max-width: 300px;
+  .banner-image-desktop {
+    display: none;
   }
 
-  .banner-footer {
-    left: 18px;
-    right: 18px;
-    bottom: 14px;
-    font-size: 0.88rem;
+  .banner-image-mobile {
+    display: block;
+  }
+
+  .banner-image-mobile {
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  .banner-subtitle {
+    font-size: 0.95rem;
+    padding: 0 2px;
+  }
+
+  .lead {
+    font-size: 0.95rem;
   }
 }

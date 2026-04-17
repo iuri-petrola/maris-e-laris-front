@@ -16,14 +16,7 @@
       <img [src]="item.imagemUrl" [alt]="item.nome" loading="lazy" />
 
       <div class="card-actions">
-        <a
-          class="buy-link"
-          [href]="getCompraUrl(item)"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Comprar agora
-        </a>
+        <a class="buy-link" routerLink="/login">Comprar agora</a>
 
         <a class="instagram-link" *ngIf="item.videoUrl" [href]="item.videoUrl" target="_blank" rel="noopener noreferrer">
           Ver no Instagram

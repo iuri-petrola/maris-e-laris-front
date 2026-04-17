@@ -4,6 +4,7 @@ import { ProdutosComponent } from './pages/produtos/produtos.component';
 import { CadastreSeComponent } from './pages/cadastre-se/cadastre-se.component';
 import { LoginClienteComponent } from './pages/login-cliente/login-cliente.component';
 import { ClienteAreaComponent } from './pages/cliente-area/cliente-area.component';
+import { ClienteCarrinhoComponent } from './pages/cliente-carrinho/cliente-carrinho.component';
 import { adminAuthGuard } from './guards/admin-auth.guard';
 import { adminGuestGuard } from './guards/admin-guest.guard';
 import { clientAuthGuard } from './guards/client-auth.guard';
@@ -17,6 +18,7 @@ export const routes: Routes = [
   { path: 'cadastre-se', component: CadastreSeComponent, canActivate: [clientGuestGuard] },
   { path: 'login', component: LoginClienteComponent, canActivate: [clientGuestGuard] },
   { path: 'cliente', component: ClienteAreaComponent, canActivate: [clientAuthGuard] },
+  { path: 'cliente/carrinho', component: ClienteCarrinhoComponent, canActivate: [clientAuthGuard] },
   { path: 'admin/login', component: AdminLoginComponent, canActivate: [adminGuestGuard] },
   { path: 'admin/produtos', component: AdminProdutosComponent, canActivate: [adminAuthGuard] },
   { path: 'admin', redirectTo: 'admin/produtos', pathMatch: 'full' },

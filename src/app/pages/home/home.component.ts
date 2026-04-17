@@ -15,6 +15,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     texto: 'Novas coleções para todas as ocasiões.',
     referencia: 'Maris e Laris'
   };
+  readonly bannerDesktopImageUrl = '/assets/banner-desktop.png';
+  readonly bannerMobileImageUrl = '/assets/banner-mobile.png';
 
   destaqueImagemUrl: string | null = null;
   destaqueNome: string | null = null;
