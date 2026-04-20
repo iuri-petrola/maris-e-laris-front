@@ -2,7 +2,7 @@
   <div class="login-card">
     <p class="eyebrow">Area do cliente</p>
     <h1>Entrar</h1>
-    <p class="lead">Acesse com seu nome e senha.</p>
+    <p class="lead">Acesse com seu nome e contato.</p>
 
     <form (ngSubmit)="submit()" class="login-form">
       <label>
@@ -11,8 +11,8 @@
       </label>
 
       <label>
-        <span>Senha</span>
-        <input [(ngModel)]="password" name="password" type="password" autocomplete="current-password" />
+        <span>Contato</span>
+        <input [(ngModel)]="contato" name="contato" type="text" autocomplete="off" placeholder="WhatsApp, Instagram ou TikTok" />
       </label>
 
       <p class="success" *ngIf="successMessage">{{ successMessage }}</p>

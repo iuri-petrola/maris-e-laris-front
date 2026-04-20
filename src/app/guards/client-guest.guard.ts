@@ -10,5 +10,5 @@ export const clientGuestGuard: CanActivateFn = () => {
     return true;
   }
 
-  return router.createUrlTree(['/cliente']);
+  return router.createUrlTree(['/cliente/carrinho']);
 };

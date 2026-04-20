@@ -10,5 +10,5 @@ export const clientAuthGuard: CanActivateFn = () => {
     return true;
   }
 
-  return router.createUrlTree(['/login']);
+  return router.createUrlTree(['/produtos']);
 };

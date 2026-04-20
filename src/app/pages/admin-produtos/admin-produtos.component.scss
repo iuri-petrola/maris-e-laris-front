@@ -40,6 +40,27 @@ h1 {
   align-items: start;
 }
 
+.admin-nav {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.admin-nav a {
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 700;
+  color: #8c3030;
+  background: #fff0f0;
+}
+
+.admin-nav a.active {
+  color: #fff;
+  background: linear-gradient(135deg, #b04b4b 0%, #8c3030 100%);
+}
+
 .form-card,
 .list-card {
   background: linear-gradient(180deg, #fffaf8 0%, #fff 100%);

@@ -2,6 +2,107 @@
   padding: 28px 0;
 }
 
+.buy-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(48, 20, 20, 0.24);
+}
+
+.buy-modal {
+  width: min(460px, 100%);
+  padding: 26px 22px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #fffaf8 0%, #fff 100%);
+  border: 1px solid #f0d8d4;
+  box-shadow: 0 24px 60px rgba(72, 32, 32, 0.16);
+}
+
+.modal-eyebrow {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.18rem;
+  font-size: 0.72rem;
+  color: #a35c5c;
+}
+
+.buy-modal h2 {
+  margin: 0 0 8px;
+  color: #7f3232;
+}
+
+.modal-lead {
+  margin: 0 0 18px;
+  color: #6f5b5b;
+}
+
+.buy-form {
+  display: grid;
+  gap: 14px;
+}
+
+.buy-form label {
+  display: grid;
+  gap: 6px;
+  color: #5d4a4a;
+  font-weight: 600;
+}
+
+.buy-form input {
+  width: 100%;
+  border: 1px solid #e6c9c9;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font: inherit;
+  background: #fff;
+}
+
+.buy-form input:focus {
+  outline: none;
+  border-color: #c46a6a;
+  box-shadow: 0 0 0 3px rgba(196, 106, 106, 0.12);
+}
+
+.secondary-btn,
+.primary-btn {
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 700;
+}
+
+.modal-error {
+  margin: 0;
+  color: #b32424;
+  font-weight: 600;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.secondary-btn,
+.primary-btn {
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.secondary-btn {
+  color: #7f3232;
+  background: #fff0f0;
+}
+
+.primary-btn {
+  color: #fff;
+  background: linear-gradient(135deg, #b04b4b 0%, #8c3030 100%);
+}
+
 .page-header h1 {
   margin: 0 0 6px;
 }
@@ -50,9 +151,11 @@
 }
 
 .buy-link {
+  border: 0;
   background: linear-gradient(135deg, #25d366 0%, #179c4b 100%);
   color: #fff;
   box-shadow: 0 10px 18px rgba(37, 211, 102, 0.22);
+  cursor: pointer;
 }
 
 .instagram-link {
@@ -92,4 +195,15 @@
 
 .empty {
   color: #7f6161;
+}
+
+@media (max-width: 640px) {
+  .buy-modal {
+    padding: 24px 18px;
+  }
+
+  .modal-actions {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
 }

@@ -1,7 +1,37 @@
 <div class="app-shell">
+  <div class="client-login-backdrop" *ngIf="clientLoginOpen" (click)="closeClientLogin()">
+    <div class="client-login-modal" (click)="$event.stopPropagation()">
+      <p class="client-login-eyebrow">Entrar</p>
+      <h2>Consultar pedidos</h2>
+      <p class="client-login-lead">Informe seu nome e contato para acessar seus pedidos.</p>
+
+      <form (ngSubmit)="submitClientLogin()">
+        <label>
+          <span>Nome</span>
+          <input [(ngModel)]="loginNome" name="loginNome" type="text" placeholder="Seu nome" />
+        </label>
+
+        <label>
+          <span>Contato</span>
+          <input [(ngModel)]="loginContato" name="loginContato" type="text" placeholder="WhatsApp, Instagram ou TikTok" />
+        </label>
+
+        <p class="client-login-error" *ngIf="clientLoginError">{{ clientLoginError }}</p>
+
+        <div class="client-login-actions">
+          <button type="button" class="secondary-action" (click)="closeClientLogin()">Cancelar</button>
+          <button type="submit" class="primary-action" [disabled]="clientLoginLoading">
+            {{ clientLoginLoading ? 'Entrando...' : 'Entrar' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <header class="site-header" [class.admin-header]="isAdminRoute">
     <div class="brand-wrap">
       <a class="brand" routerLink="/">Maris e Laris</a>
+      <span class="client-greeting" *ngIf="!isAdminRoute && clientNome">Ola {{ getClientDisplayName() }}!</span>
       <span class="admin-username" *ngIf="isAdminRoute && adminUsername">Ola, {{ adminUsername }}</span>
     </div>
 
@@ -43,15 +73,17 @@
       </div>
     </nav>
 
-    <div class="header-actions" *ngIf="!isAdminRoute">
-      <div class="auth-links" *ngIf="!clientNome; else clientLinks">
-        <a routerLink="/cadastre-se" routerLinkActive="active">Cadastre-se</a><span class="nav-divider" aria-hidden="true">&nbsp;|&nbsp;&nbsp;</span><a routerLink="/login" routerLinkActive="active">Entrar</a>
+    <div class="header-actions" [class.header-actions--guest]="!clientNome" [class.header-actions--logged]="!!clientNome" *ngIf="!isAdminRoute">
+      <div class="auth-links" *ngIf="!clientNome">
+        <button type="button" class="auth-action" (click)="openClientLogin()">Entrar</button>
       </div>
-      <ng-template #clientLinks>
-        <div class="auth-links auth-links--logged">
+
+      <div class="auth-links auth-links--logged" *ngIf="clientNome">
+        <div class="client-actions-row">
           <a
             class="cart-menu-link"
             routerLink="/cliente/carrinho"
+            routerLinkActive="active"
             aria-label="Abrir carrinho"
             title="Carrinho"
           >
@@ -59,9 +91,10 @@
               <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2Zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2ZM7.2 14h9.9c.8 0 1.5-.4 1.8-1.1l3.3-6.1a1 1 0 0 0-.9-1.5H6.2L5.3 3.4A1 1 0 0 0 4.3 3H2v2h1.7l3.1 9.5-.9 1.6A2 2 0 0 0 7.6 19H20v-2H7.6l1.1-2Z" />
             </svg>
           </a>
-          <a routerLink="/cliente" routerLinkActive="active">Ola, {{ clientNome }}</a><span class="nav-divider" aria-hidden="true">&nbsp;|&nbsp;&nbsp;</span><button type="button" class="auth-action" (click)="logoutClient()">Sair</button>
+          <a class="client-menu-link" routerLink="/cliente/pedidos" routerLinkActive="active">Meus pedidos</a>
+          <button type="button" class="auth-action" (click)="logoutClient()">Sair</button>
         </div>
-      </ng-template>
+      </div>
     </div>
   </header>
 

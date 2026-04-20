@@ -13,7 +13,7 @@ import { ClientAuthService } from '../../services/client-auth.service';
 })
 export class LoginClienteComponent {
   nome = '';
-  password = '';
+  contato = '';
   loading = false;
   errorMessage = '';
   successMessage = '';
@@ -26,13 +26,13 @@ export class LoginClienteComponent {
     const message = this.route.snapshot.queryParamMap.get('message');
 
     if (message === 'signup-success') {
-      this.successMessage = 'Cadastro realizado com sucesso. Entre com seu nome e senha.';
+      this.successMessage = 'Cadastro realizado com sucesso. Entre com seu nome e contato.';
     }
   }
 
   submit(): void {
-    if (!this.nome.trim() || !this.password) {
-      this.errorMessage = 'Informe nome e senha.';
+    if (!this.nome.trim() || !this.contato.trim()) {
+      this.errorMessage = 'Informe nome e contato.';
       this.successMessage = '';
       return;
     }
@@ -41,10 +41,10 @@ export class LoginClienteComponent {
     this.errorMessage = '';
     this.successMessage = '';
 
-    this.clientAuthService.login(this.nome.trim(), this.password).subscribe({
+    this.clientAuthService.login(this.nome.trim(), this.contato.trim()).subscribe({
       next: () => {
         this.loading = false;
-        this.router.navigate(['/cliente']);
+        this.router.navigate(['/cliente/carrinho']);
       },
       error: (error) => {
         this.loading = false;

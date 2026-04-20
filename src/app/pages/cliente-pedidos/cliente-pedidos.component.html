@@ -1,0 +1,59 @@
+<section class="cliente-carrinho-page">
+  <div class="cliente-carrinho-card">
+    <div class="cliente-carrinho-header">
+      <div>
+        <p class="eyebrow">Area do cliente</p>
+        <h1>Historico de pedidos</h1>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="logout-btn" (click)="logout()">Sair</button>
+      </div>
+    </div>
+
+    <p class="status" *ngIf="loading">Carregando pedidos...</p>
+    <p class="error" *ngIf="!loading && errorMessage">{{ errorMessage }}</p>
+    <p class="status" *ngIf="!loading && !errorMessage && !pedidos.length">Nenhum pedido enviado ainda.</p>
+
+    <div class="cart-items" *ngIf="!loading && !errorMessage && pedidos.length">
+      <article class="pedido-group" *ngFor="let pedido of pedidos">
+        <button
+          type="button"
+          class="pedido-group-toggle"
+          (click)="togglePedido(pedido.numero)"
+          [attr.aria-label]="isPedidoExpanded(pedido.numero) ? 'Retrair pedido' : 'Expandir pedido'"
+        >
+          <strong>{{ pedido.numero }}</strong>
+          <span class="toggle-pedido-btn">{{ isPedidoExpanded(pedido.numero) ? '▾' : '▸' }}</span>
+        </button>
+
+        <ng-container *ngIf="isPedidoExpanded(pedido.numero)">
+        <div class="pedido-group-head">
+          <div class="pedido-group-main">
+            <p class="pedido-meta">{{ formatDate(pedido.createdAt) }}</p>
+          </div>
+          <div class="pedido-group-side">
+            <span class="pedido-status">Status: {{ formatStatus(pedido.status) }}</span>
+            <strong class="cart-subtotal">Total {{ formatPrice(pedido.total) }}</strong>
+          </div>
+        </div>
+
+        <article class="cart-item" *ngFor="let item of pedido.itens">
+          <div class="cart-item-thumb">
+            <img [src]="item.produto.imagemUrl" [alt]="item.produto.nome" loading="lazy" />
+          </div>
+          <div class="cart-item-body">
+            <div class="cart-item-title-row">
+              <strong>{{ item.produto.nome }}</strong>
+              <span class="pedido-qty" *ngIf="item.quantidade > 1">Qtd {{ item.quantidade }}</span>
+            </div>
+          </div>
+          <div class="cart-price-block">
+            <span class="cart-unit-price" *ngIf="item.quantidade > 1">{{ formatPrice(item.produto.preco) }} cada</span>
+            <strong class="cart-subtotal">{{ formatPrice(item.subtotal) }}</strong>
+          </div>
+        </article>
+        </ng-container>
+      </article>
+    </div>
+  </div>
+</section>

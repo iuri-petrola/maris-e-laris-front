@@ -1,4 +1,39 @@
 <section class="page">
+  <div class="buy-modal-backdrop" *ngIf="modalOpen" (click)="closeBuyModal()">
+    <div class="buy-modal" (click)="$event.stopPropagation()">
+      <p class="modal-eyebrow">Comprar agora</p>
+      <h2>{{ selectedProduto?.nome }}</h2>
+      <p class="modal-lead">Informe seu nome e a melhor forma de contato para continuar.</p>
+
+      <form class="buy-form" (ngSubmit)="submitBuy()">
+        <label>
+          <span>Nome</span>
+          <input [(ngModel)]="nome" name="nome" type="text" autocomplete="name" />
+        </label>
+
+        <label>
+          <span>Contato</span>
+          <input
+            [(ngModel)]="contato"
+            name="contato"
+            type="text"
+            placeholder="Whats, Instagram ou TikTok"
+            autocomplete="off"
+          />
+        </label>
+
+        <p class="modal-error" *ngIf="modalErrorMessage">{{ modalErrorMessage }}</p>
+
+        <div class="modal-actions">
+          <button type="button" class="secondary-btn" (click)="closeBuyModal()">Cancelar</button>
+          <button type="submit" class="primary-btn" [disabled]="modalLoading">
+            {{ modalLoading ? 'Enviando...' : 'Adicionar ao carrinho' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div class="page-header">
     <h1>Produtos</h1>
     <p class="lead">Conheca nossos produtos.</p>
@@ -16,7 +51,7 @@
       <img [src]="item.imagemUrl" [alt]="item.nome" loading="lazy" />
 
       <div class="card-actions">
-        <a class="buy-link" routerLink="/login">Comprar agora</a>
+        <button type="button" class="buy-link" (click)="openBuyModal(item)">Comprar agora</button>
 
         <a class="instagram-link" *ngIf="item.videoUrl" [href]="item.videoUrl" target="_blank" rel="noopener noreferrer">
           Ver no Instagram

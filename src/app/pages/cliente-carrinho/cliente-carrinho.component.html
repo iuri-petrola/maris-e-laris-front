@@ -6,54 +6,81 @@
         <h1>Meu carrinho</h1>
       </div>
       <div class="header-actions">
-        <a class="back-link" routerLink="/cliente">Continuar comprando</a>
+        <a class="back-link" routerLink="/produtos">Continuar comprando</a>
         <button type="button" class="logout-btn" (click)="logout()">Sair</button>
       </div>
     </div>
 
-    <p class="status" *ngIf="loading">Carregando carrinho...</p>
+    <p class="status" *ngIf="loading">Carregando pedidos...</p>
     <p class="error" *ngIf="!loading && errorMessage">{{ errorMessage }}</p>
 
     <div class="cart-panel" *ngIf="!loading && !errorMessage">
-      <div class="section-title">
-        <h2>Itens adicionados</h2>
-        <p *ngIf="cart.items.length > 0">{{ cart.items.length }} item(ns)</p>
-      </div>
+      <p class="status" *ngIf="pedidos.length === 0">Seu carrinho esta vazio !</p>
 
-      <p class="cart-message" *ngIf="cartMessage">{{ cartMessage }}</p>
-      <p class="status" *ngIf="cartLoading">Atualizando carrinho...</p>
-      <p class="status" *ngIf="!cartLoading && cart.items.length === 0">Seu carrinho ainda esta vazio.</p>
-
-      <div class="cart-items" *ngIf="cart.items.length > 0">
-        <article class="cart-item" *ngFor="let item of cart.items">
+      <div class="cart-items" *ngIf="pedidos.length > 0">
+        <article class="cart-item" *ngFor="let pedido of pedidos" [class.cart-item--current]="isCurrentPedido(pedido.numero)">
           <div class="cart-item-thumb">
-            <img [src]="item.produto.imagemUrl" [alt]="item.produto.nome" loading="lazy" />
+            <img [src]="pedido.produto.imagemUrl" [alt]="pedido.produto.nome" loading="lazy" />
           </div>
 
           <div class="cart-item-body">
-            <strong>{{ item.produto.nome }}</strong>
-            <span>{{ formatPrice(item.produto.preco) }}</span>
-
-            <div class="cart-item-actions">
-              <button type="button" (click)="changeQuantidade(item.id, item.quantidade - 1)" [disabled]="cartLoading || item.quantidade <= 1">-</button>
-              <span>{{ item.quantidade }}</span>
-              <button type="button" (click)="changeQuantidade(item.id, item.quantidade + 1)" [disabled]="cartLoading">+</button>
-              <button type="button" class="remove-btn" (click)="removeItem(item.id)" [disabled]="cartLoading">Remover</button>
+            <div class="cart-item-title-row">
+              <strong>{{ pedido.produto.nome }}</strong>
+              <div class="pedido-qty-controls">
+                <button
+                  type="button"
+                  class="qty-btn"
+                  (click)="decreaseItem(pedido)"
+                  [disabled]="isUpdatingItem(pedido.numero, pedido.produto.id) || sendingCurrentPedido"
+                >
+                  -
+                </button>
+                <span class="pedido-qty">Qtd {{ pedido.quantidade }}</span>
+                <button
+                  type="button"
+                  class="qty-btn"
+                  (click)="increaseItem(pedido)"
+                  [disabled]="isUpdatingItem(pedido.numero, pedido.produto.id) || sendingCurrentPedido"
+                >
+                  +
+                </button>
+              </div>
             </div>
           </div>
 
-          <strong class="cart-subtotal">{{ formatPrice(item.subtotal) }}</strong>
+          <div class="cart-price-block">
+            <span class="cart-unit-price" *ngIf="pedido.quantidade > 1">{{ formatPrice(pedido.produto.preco) }} cada</span>
+            <strong class="cart-subtotal">{{ formatPrice(pedido.subtotal) }}</strong>
+            <span class="qty-loading" *ngIf="isUpdatingItem(pedido.numero, pedido.produto.id)">Atualizando...</span>
+          </div>
         </article>
 
-        <div class="cart-total">
-          <span>Total</span>
-          <strong>{{ formatPrice(cart.total) }}</strong>
+        <div class="current-order-banner" *ngIf="currentPedidoNumero && getCurrentPedidoItems().length > 0">
+          <div>
+            <p class="current-order-hint">Pedido atual: <strong>{{ currentPedidoNumero }}</strong></p>
+            <p class="current-order-status">Status: <strong>{{ getCurrentPedidoStatus() }}</strong></p>
+            <p class="current-order-date">Data {{ getCurrentPedidoDate() }}</p>
+            <p class="current-order-total">Total atual: <strong>{{ formatPrice(getCurrentPedidoTotal()) }}</strong></p>
+          </div>
+          <button type="button" class="send-whatsapp-btn" (click)="openSendConfirmation()" [disabled]="sendingCurrentPedido">{{ sendingCurrentPedido ? 'Enviando...' : 'Enviar pedido por WhatsApp' }}</button>
         </div>
 
         <div class="cart-footer-actions">
-          <a class="back-link" routerLink="/cliente">Continuar comprando</a>
+          <a class="back-link" routerLink="/produtos">Continuar comprando</a>
         </div>
       </div>
     </div>
   </div>
+
+<div class="send-confirm-overlay" *ngIf="showSendConfirmation">
+  <div class="send-confirm-dialog">
+    <h2>Confirmar envio</h2>
+    <p>Ao enviar seu pedido nao sera mais possivel adicionar itens a ele.</p>
+    <div class="send-confirm-actions">
+      <button type="button" class="cancel-btn" (click)="closeSendConfirmation()">Cancelar</button>
+      <button type="button" class="confirm-btn" (click)="confirmSendCurrentPedido()">Enviar</button>
+    </div>
+  </div>
+</div>
+
 </section>

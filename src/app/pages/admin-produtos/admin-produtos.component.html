@@ -9,6 +9,11 @@
     <button class="logout-btn" type="button" (click)="logout()">Sair</button>
   </div>
 
+  <nav class="admin-nav">
+    <a routerLink="/admin/produtos" routerLinkActive="active">Produtos</a>
+    <a routerLink="/admin/pedidos" routerLinkActive="active">Pedidos</a>
+  </nav>
+
   <div class="admin-layout">
     <article #formCard class="form-card">
       <h2>{{ editingId ? 'Editar produto' : 'Novo produto' }}</h2>

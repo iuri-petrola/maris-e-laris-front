@@ -1,0 +1,107 @@
+<section class="admin-page">
+  <div class="admin-header">
+    <div>
+      <p class="eyebrow">Painel administrativo</p>
+      <h1>Pedidos</h1>
+      <p class="lead">Consulte os pedidos gerados a partir da vitrine e os dados enviados pelos clientes.</p>
+    </div>
+
+    <button class="logout-btn" type="button" (click)="logout()">Sair</button>
+  </div>
+
+  <nav class="admin-nav">
+    <a routerLink="/admin/produtos" routerLinkActive="active">Produtos</a>
+    <a routerLink="/admin/pedidos" routerLinkActive="active">Pedidos</a>
+  </nav>
+
+  <article class="list-card">
+    <div class="pedido-toolbar">
+      <div class="pedido-summary">
+        <span>Total de pedidos</span>
+        <strong>{{ totalPedidosFiltrados }}</strong>
+        <small *ngIf="selectedStatusFilter !== 'TODOS'">de {{ totalPedidos }}</small>
+      </div>
+
+      <div class="pedido-filters">
+        <label class="pedido-filter">
+          <span>Status</span>
+          <select [(ngModel)]="selectedStatusFilter">
+            <option *ngFor="let status of statusFilterOptions" [ngValue]="status">
+              {{ status === 'TODOS' ? 'Todos' : formatStatus(status) }}
+            </option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <p class="empty" *ngIf="loading">Carregando pedidos...</p>
+    <p class="error" *ngIf="!loading && errorMessage">{{ errorMessage }}</p>
+    <p class="empty" *ngIf="!loading && !errorMessage && !filteredPedidos.length">Nenhum pedido registrado.</p>
+
+    <div class="pedido-list" *ngIf="!loading && !errorMessage && filteredPedidos.length">
+      <article class="pedido-item" *ngFor="let pedido of filteredPedidos">
+        <button
+          type="button"
+          class="pedido-toggle"
+          (click)="togglePedido(pedido.numero)"
+          [attr.aria-label]="isPedidoExpanded(pedido.numero) ? 'Retrair pedido' : 'Expandir pedido'"
+        >
+          <h2>{{ pedido.numero }}</h2>
+          <span class="pedido-toggle-icon">{{ isPedidoExpanded(pedido.numero) ? '▾' : '▸' }}</span>
+        </button>
+
+        <div class="pedido-content" *ngIf="isPedidoExpanded(pedido.numero)">
+          <div class="pedido-head">
+            <div>
+              <p class="pedido-date">{{ formatDate(pedido.createdAt) }}</p>
+            </div>
+
+            <div class="pedido-status-block">
+              <select
+                class="pedido-status-select"
+                [ngModel]="pedido.status"
+                (ngModelChange)="updateStatus(pedido.numero, $event)"
+                [disabled]="savingStatus[pedido.numero]"
+              >
+                <option *ngFor="let status of statusOptions" [ngValue]="status">{{ formatStatus(status) }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="pedido-grid">
+            <div>
+              <h3>Cliente</h3>
+              <p>{{ pedido.clientUser.nome }}</p>
+              <p>{{ pedido.contato }}</p>
+            </div>
+
+            <div>
+              <h3>Total do pedido</h3>
+              <p class="price total-price">{{ formatPrice(pedido.total) }}</p>
+            </div>
+          </div>
+
+          <div class="pedido-produtos">
+            <article class="pedido-produto-item" *ngFor="let produto of pedido.produtos">
+              <img [src]="produto.imagemUrl" [alt]="produto.nome" />
+
+              <div class="pedido-produto-content">
+                <div class="pedido-produto-head">
+                  <div>
+                    <h3>{{ produto.nome }}</h3>
+                    <p class="pedido-qty">Qtd {{ produto.quantidade }}</p>
+                  </div>
+
+                  <div class="pedido-produto-price">
+                    <span *ngIf="produto.quantidade > 1">{{ formatPrice(produto.preco) }} cada</span>
+                    <strong>{{ formatPrice(produto.subtotal) }}</strong>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </article>
+    </div>
+  </article>
+</section>

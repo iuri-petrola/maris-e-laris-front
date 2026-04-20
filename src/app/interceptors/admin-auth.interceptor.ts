@@ -12,7 +12,10 @@ export const adminAuthInterceptor: HttpInterceptorFn = (req, next) => {
   const adminToken = authService.getToken();
   const clientToken = clientAuthService.getToken();
   const isAdminRequest = req.url.includes('/admin/') || /\/produtos(?:\/\d+(?:\/[a-z-]+)?)?$/.test(req.url);
-  const isClientRequest = req.url.includes('/client/me') || req.url.includes('/client/cart');
+  const isClientRequest =
+    req.url.includes('/client/me') ||
+    req.url.includes('/client/cart') ||
+    req.url.includes('/client/pedidos');
 
   let authReq = req;
 
@@ -43,7 +46,7 @@ export const adminAuthInterceptor: HttpInterceptorFn = (req, next) => {
 
       if (error.status === 401 && clientAuthService.isAuthenticated() && isClientRequest) {
         clientAuthService.logout();
-        router.navigate(['/login'], {
+        router.navigate(['/produtos'], {
           queryParams: { reason: 'session-expired' }
         });
       }

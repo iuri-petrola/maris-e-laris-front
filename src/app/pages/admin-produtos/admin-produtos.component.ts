@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AdminAuthService } from '../../services/admin-auth.service';
 import { ProdutoApiService, ProdutoItem } from '../../services/produto-api.service';
 
 @Component({
   selector: 'app-admin-produtos',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive],
   templateUrl: './admin-produtos.component.html',
   styleUrls: ['./admin-produtos.component.scss']
 })

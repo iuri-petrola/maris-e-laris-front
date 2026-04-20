@@ -1,8 +1,10 @@
 <section class="cadastro-page">
-  <div class="cadastro-card">
-    <p class="eyebrow">Cadastro</p>
+  <div class="cadastro-backdrop"></div>
+
+  <div class="cadastro-modal">
+    <p class="eyebrow">Cadastro rapido</p>
     <h1>Cadastre-se</h1>
-    <p class="lead">Preencha seus dados para receber novidades e atendimento direto da loja.</p>
+    <p class="lead">Informe seu nome e a melhor forma de contato para continuar comprando.</p>
 
     <form class="cadastro-form" (ngSubmit)="submit()">
       <label>
@@ -10,31 +12,31 @@
         <input [(ngModel)]="nome" name="nome" type="text" autocomplete="name" />
       </label>
 
-      <label>
-        <span>E-mail</span>
-        <input [(ngModel)]="email" name="email" type="email" autocomplete="email" />
-      </label>
+      <div class="contact-type">
+        <span>Contato</span>
+        <div class="contact-type-buttons">
+          <button type="button" [class.active]="contactType === 'Whats'" (click)="setContactType('Whats')">Whats</button>
+          <button type="button" [class.active]="contactType === 'Insta'" (click)="setContactType('Insta')">Insta</button>
+          <button type="button" [class.active]="contactType === 'TikTok'" (click)="setContactType('TikTok')">TikTok</button>
+        </div>
+      </div>
 
       <label>
-        <span>WhatsApp</span>
-        <input [(ngModel)]="whatsapp" name="whatsapp" type="text" autocomplete="tel" />
-      </label>
-
-      <label>
-        <span>Senha</span>
-        <input [(ngModel)]="senha" name="senha" type="password" autocomplete="new-password" />
-      </label>
-
-      <label>
-        <span>Confirmar senha</span>
-        <input [(ngModel)]="confirmarSenha" name="confirmarSenha" type="password" autocomplete="new-password" />
+        <span>Contato</span>
+        <input
+          [(ngModel)]="contato"
+          (ngModelChange)="normalizeContatoInput()"
+          name="contato"
+          type="text"
+          [placeholder]="contatoPlaceholder"
+          autocomplete="off"
+        />
       </label>
 
       <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
-      <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
 
-      <button type="submit" [disabled]="loading">
-        {{ loading ? 'Cadastrando...' : 'Criar cadastro' }}
+      <button type="submit" class="submit-btn" [disabled]="loading">
+        {{ loading ? 'Enviando...' : 'Continuar' }}
       </button>
     </form>
   </div>

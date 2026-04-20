@@ -2,7 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ClientAuthService } from '../../services/client-auth.service';
 import { ClientUserApiService } from '../../services/client-user-api.service';
+
+type ContactType = 'Whats' | 'Insta' | 'TikTok';
 
 @Component({
   selector: 'app-cadastre-se',
@@ -13,55 +16,68 @@ import { ClientUserApiService } from '../../services/client-user-api.service';
 })
 export class CadastreSeComponent {
   nome = '';
-  email = '';
-  whatsapp = '';
-  senha = '';
-  confirmarSenha = '';
+  contato = 'Whats: ';
+  contactType: ContactType = 'Whats';
   loading = false;
   errorMessage = '';
-  successMessage = '';
 
   constructor(
     private readonly clientUserApiService: ClientUserApiService,
+    private readonly clientAuthService: ClientAuthService,
     private readonly router: Router
   ) {}
 
-  submit(): void {
-    if (!this.nome.trim() || !this.email.trim() || !this.whatsapp.trim() || !this.senha || !this.confirmarSenha) {
-      this.errorMessage = 'Preencha nome, e-mail, whatsapp, senha e confirmacao de senha.';
-      this.successMessage = '';
-      return;
+  get contatoPlaceholder(): string {
+    if (this.contactType === 'Whats') {
+      return 'Whats: (85) 99999-9999';
     }
 
-    if (this.senha !== this.confirmarSenha) {
-      this.errorMessage = 'A confirmacao de senha nao confere.';
-      this.successMessage = '';
+    if (this.contactType === 'Insta') {
+      return 'Insta: @seuinstagram';
+    }
+
+    return 'TikTok: @seutiktok';
+  }
+
+  setContactType(type: ContactType): void {
+    this.contactType = type;
+    this.contato = `${type}: `;
+  }
+
+  normalizeContatoInput(): void {
+    const prefix = `${this.contactType}: `;
+
+    if (!this.contato.startsWith(prefix)) {
+      const rawValue = this.contato
+        .replace(/^Whats:\s*/i, '')
+        .replace(/^Insta:\s*/i, '')
+        .replace(/^TikTok:\s*/i, '');
+
+      this.contato = `${prefix}${rawValue}`;
+    }
+  }
+
+  submit(): void {
+    this.normalizeContatoInput();
+
+    if (!this.nome.trim() || this.contato.trim() === `${this.contactType}:`) {
+      this.errorMessage = 'Preencha nome e contato.';
       return;
     }
 
     this.loading = true;
     this.errorMessage = '';
-    this.successMessage = '';
 
     this.clientUserApiService
       .register({
         nome: this.nome.trim(),
-        email: this.email.trim(),
-        whatsapp: this.whatsapp.trim(),
-        senha: this.senha
+        contato: this.contato.trim()
       })
       .subscribe({
-        next: () => {
+        next: (response) => {
           this.loading = false;
-          this.successMessage = 'Cadastro realizado com sucesso.';
-          this.nome = '';
-          this.email = '';
-          this.whatsapp = '';
-          this.senha = '';
-          this.confirmarSenha = '';
-          this.router.navigate(['/login'], {
-            queryParams: { message: 'signup-success' }
-          });
+          this.clientAuthService.setSession(response.token, response.nome);
+          this.router.navigate(['/cliente']);
         },
         error: (error) => {
           this.loading = false;

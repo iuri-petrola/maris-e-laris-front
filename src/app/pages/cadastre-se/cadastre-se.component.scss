@@ -1,17 +1,26 @@
 .cadastro-page {
   min-height: calc(100vh - 140px);
+  position: relative;
   display: grid;
   place-items: center;
-  padding: 40px 0;
+  padding: 28px 0;
 }
 
-.cadastro-card {
-  width: min(520px, 100%);
-  padding: 30px;
+.cadastro-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(80, 33, 33, 0.12);
+}
+
+.cadastro-modal {
+  position: relative;
+  z-index: 1;
+  width: min(460px, calc(100vw - 28px));
+  padding: 28px 24px;
   border-radius: 24px;
   background: linear-gradient(180deg, #fffaf8 0%, #fff 100%);
   border: 1px solid #f0d8d4;
-  box-shadow: 0 22px 44px rgba(118, 61, 61, 0.12);
+  box-shadow: 0 22px 44px rgba(118, 61, 61, 0.14);
 }
 
 .eyebrow {
@@ -28,7 +37,7 @@ h1 {
 }
 
 .lead {
-  margin: 0 0 22px;
+  margin: 0 0 20px;
   color: #6f5b5b;
 }
 
@@ -37,7 +46,8 @@ h1 {
   gap: 14px;
 }
 
-label {
+label,
+.contact-type {
   display: grid;
   gap: 6px;
   color: #5d4a4a;
@@ -59,38 +69,52 @@ input:focus {
   box-shadow: 0 0 0 3px rgba(196, 106, 106, 0.12);
 }
 
-button {
+.contact-type-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.contact-type-buttons button,
+.submit-btn {
   border: 0;
   border-radius: 999px;
-  padding: 12px 18px;
   font: inherit;
   font-weight: 700;
+}
+
+.contact-type-buttons button {
+  padding: 8px 14px;
+  background: #fff0f0;
+  color: #8c3030;
+  cursor: pointer;
+}
+
+.contact-type-buttons button.active {
+  color: #fff;
+  background: linear-gradient(135deg, #b04b4b 0%, #8c3030 100%);
+}
+
+.submit-btn {
+  padding: 12px 18px;
   color: #fff;
   background: linear-gradient(135deg, #b04b4b 0%, #8c3030 100%);
   cursor: pointer;
 }
 
-button:disabled {
+.submit-btn:disabled {
   opacity: 0.75;
   cursor: wait;
 }
 
-.error,
-.success {
+.error {
   margin: 0;
+  color: #b32424;
   font-weight: 600;
 }
 
-.error {
-  color: #b32424;
-}
-
-.success {
-  color: #1e7d45;
-}
-
 @media (max-width: 640px) {
-  .cadastro-card {
+  .cadastro-modal {
     padding: 24px 18px;
   }
 }
