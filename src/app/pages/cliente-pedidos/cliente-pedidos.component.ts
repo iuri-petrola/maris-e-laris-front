@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ClientAuthService } from '../../services/client-auth.service';
 import { CurrentPedidoService } from '../../services/current-pedido.service';
@@ -9,6 +10,8 @@ type GroupedPedidoItem = ClientPedidoItem & {
   quantidade: number;
   subtotal: number;
 };
+
+type PedidoStatusFilter = 'TODOS' | 'ENVIADO' | 'EM_ATENDIMENTO' | 'FINALIZADO';
 
 type PedidoGroup = {
   numero: string;
@@ -22,7 +25,7 @@ type PedidoGroup = {
 @Component({
   selector: 'app-cliente-pedidos',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './cliente-pedidos.component.html',
   styleUrls: ['./cliente-pedidos.component.scss']
 })
@@ -31,6 +34,8 @@ export class ClientePedidosComponent implements OnInit {
   errorMessage = '';
   pedidos: PedidoGroup[] = [];
   expandedPedidos = new Set<string>();
+  selectedStatusFilter: PedidoStatusFilter = 'TODOS';
+  readonly statusFilterOptions: PedidoStatusFilter[] = ['TODOS', 'ENVIADO', 'EM_ATENDIMENTO', 'FINALIZADO'];
 
   constructor(
     private readonly clientAuthService: ClientAuthService,
@@ -87,6 +92,22 @@ export class ClientePedidosComponent implements OnInit {
 
   isPedidoExpanded(numero: string): boolean {
     return this.expandedPedidos.has(numero);
+  }
+
+  get filteredPedidos(): PedidoGroup[] {
+    if (this.selectedStatusFilter === 'TODOS') {
+      return this.pedidos;
+    }
+
+    return this.pedidos.filter((pedido) => pedido.status === this.selectedStatusFilter);
+  }
+
+  get totalPedidos(): number {
+    return this.pedidos.length;
+  }
+
+  get totalPedidosFiltrados(): number {
+    return this.filteredPedidos.length;
   }
 
   formatStatus(status: string): string {
