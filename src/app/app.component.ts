@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
+import { environment } from '../environments/environment';
 import { AdminAuthService } from './services/admin-auth.service';
 import { ClientAuthService } from './services/client-auth.service';
 import { CurrentPedidoService } from './services/current-pedido.service';
@@ -31,11 +32,8 @@ export class AppComponent {
   loginNome = '';
   loginContato = '';
 
-  readonly socialLinks: SocialLink[] = [
-    { name: 'whatsapp', href: 'https://wa.me/5585996270455', label: 'WhatsApp' },
-    { name: 'instagram', href: 'https://www.instagram.com/mariselarislojaonline/', label: 'Instagram' },
-    { name: 'tiktok', href: 'https://www.tiktok.com/@mariselaris.loja', label: 'TikTok' }
-  ];
+  readonly socialLinks: SocialLink[] = environment.socialLinks;
+  readonly whatsappLink = this.socialLinks.find((social) => social.name === 'whatsapp') ?? null;
 
   constructor(
     private readonly router: Router,
