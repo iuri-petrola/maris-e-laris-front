@@ -2,18 +2,66 @@
   <p class="lead-card">Elegancia feminina em cada detalhe</p>
 </section>
 
-<section class="main-banner">
+<section
+  class="main-banner"
+  (mouseenter)="pauseBannerRotation()"
+  (mouseleave)="resumeBannerRotation()"
+>
+  <div
+    class="banner-backdrop banner-backdrop-desktop"
+    [style.background-image]="'url(' + currentBanner.desktopImageUrl + ')'"
+    aria-hidden="true"
+  ></div>
+  <div
+    class="banner-backdrop banner-backdrop-mobile"
+    [style.background-image]="'url(' + currentBanner.mobileImageUrl + ')'"
+    aria-hidden="true"
+  ></div>
   <img
     class="banner-image banner-image-desktop"
-    [src]="bannerDesktopImageUrl"
-    alt="Banner principal Maris e Laris"
+    [class.banner-image-cover]="currentBanner.fit === 'cover'"
+    [src]="currentBanner.desktopImageUrl"
+    [alt]="currentBanner.alt"
   />
   <img
     class="banner-image banner-image-mobile"
-    [src]="bannerMobileImageUrl"
-    alt="Banner principal Maris e Laris"
+    [class.banner-image-cover]="currentBanner.fit === 'cover'"
+    [src]="currentBanner.mobileImageUrl"
+    [alt]="currentBanner.alt"
   />
   <div class="banner-overlay"></div>
+
+  <button
+    *ngIf="banners.length > 1"
+    type="button"
+    class="banner-nav banner-nav-prev"
+    (click)="showPreviousBanner()"
+    aria-label="Banner anterior"
+  >
+    <span aria-hidden="true">&#8249;</span>
+  </button>
+
+  <button
+    *ngIf="banners.length > 1"
+    type="button"
+    class="banner-nav banner-nav-next"
+    (click)="showNextBanner()"
+    aria-label="Proximo banner"
+  >
+    <span aria-hidden="true">&#8250;</span>
+  </button>
+
+  <div *ngIf="banners.length > 1" class="banner-dots" aria-label="Selecionar banner">
+    <button
+      *ngFor="let banner of banners; let i = index"
+      type="button"
+      class="banner-dot"
+      [class.active]="i === currentBannerIndex"
+      [attr.aria-label]="'Ir para banner ' + (i + 1)"
+      [attr.aria-pressed]="i === currentBannerIndex"
+      (click)="setCurrentBanner(i)"
+    ></button>
+  </div>
 </section>
 
 <p class="banner-subtitle">Descubra roupas com estilo exclusivo para valorizar o seu visual.</p>
